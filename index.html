@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一年级数学课堂互动练习</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap">
+<style>
+:root{
+  --bg:#FFF9EE;
+  --ink:#3A2D5C;
+  --ink2:#7A6A9C;
+  --card:#FFFFFF;
+  --line:#EADFC9;
+  --accent:#FF7A3D;
+  --ok:#22A06B;
+  --err:#E5484D;
+  --blue:#2D6CDF;
+  --shadow:0 6px 18px rgba(122,93,48,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:var(--bg);color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+#app{min-height:100%;display:flex;flex-direction:column;max-width:1560px;margin:0 auto;padding:26px 36px 24px}
+
+/* ===== 顶栏 ===== */
+#topbar{display:flex;align-items:center;gap:28px}
+.badge{
+  width:118px;height:118px;border-radius:50%;color:#fff;flex:none;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 8px 18px rgba(0,0,0,.16);
+}
+.badge .n{font-size:52px;font-weight:900;line-height:1}
+.badge .t{font-size:16px;font-weight:700;margin-top:4px;opacity:.95}
+.badge-1{background:linear-gradient(145deg,#FF9A52,#F26B2E)}
+.badge-2{background:linear-gradient(145deg,#5B9BFF,#2D6CDF)}
+.badge-3{background:linear-gradient(145deg,#3FBF7E,#22A06B)}
+.badge-4{background:linear-gradient(145deg,#B07FE6,#8E4FD0)}
+.badge-5{background:linear-gradient(145deg,#F179C9,#E2479E)}
+.badge-6{background:linear-gradient(145deg,#4AD5CB,#12A8A0)}
+.badge-7{background:linear-gradient(145deg,#F2C14E,#D99A1B)}
+.titles h1{font-size:54px;font-weight:900;letter-spacing:1px}
+.titles p{font-size:30px;font-weight:700;color:var(--ink2);margin-top:6px}
+
+/* ===== 舞台 ===== */
+.stage{flex:1;display:flex;align-items:center;justify-content:center;padding:24px 0}
+.stage-card{
+  background:var(--card);border-radius:36px;box-shadow:var(--shadow);
+  padding:34px 44px;width:100%;max-width:1460px;
+}
+.hl{color:var(--accent);font-size:1.15em}
+
+/* ===== 通用小元素 ===== */
+.chip{
+  width:100px;height:100px;border-radius:24px;background:#fff;
+  box-shadow:0 3px 8px rgba(0,0,0,.1);
+  display:flex;align-items:center;justify-content:center;flex:none;
+}
+.chip img{width:90px;height:90px;object-fit:contain}
+.sec-btn{
+  font-size:30px;font-weight:900;padding:14px 40px;border-radius:999px;border:none;
+  background:var(--blue);color:#fff;cursor:pointer;font-family:inherit;
+  box-shadow:0 5px 0 #1B4FA8,0 10px 18px rgba(45,108,223,.28);
+}
+.sec-btn:active{transform:translateY(4px);box-shadow:0 1px 0 #1B4FA8}
+.sec-btn.ghost{background:#fff;border:3px solid var(--line);color:var(--ink2);box-shadow:none}
+.sec-btn.ghost:active{transform:translateY(2px)}
+.sec-btn:focus-visible,.next-btn:focus-visible{outline:4px solid var(--blue);outline-offset:4px}
+
+/* ===== 题型1：连线（一行排列） ===== */
+.q1{position:relative}
+.q1-top{margin-bottom:100px;text-align:center}
+.animal-group{
+  display:inline-flex;flex-wrap:nowrap;gap:12px;justify-content:center;
+  background:#FFF3E4;border:4px dashed transparent;border-radius:30px;padding:16px 22px;
+  cursor:pointer;font-family:inherit;transition:background .15s,border-color .15s;
+}
+.animal-group.selected{border-color:var(--accent);background:#FFE9D6}
+.animal-group.ok{border-color:var(--ok);background:#E5F8EE}
+.q1-cards{display:flex;flex-wrap:nowrap;gap:12px;justify-content:center}
+.num-card{
+  width:120px;height:134px;border-radius:22px;border:4px solid var(--blue);background:#fff;
+  font-size:70px;font-weight:900;color:var(--blue);cursor:pointer;font-family:inherit;flex:none;
+  transition:transform .1s,background .15s;
+}
+.num-card:hover{transform:scale(1.06)}
+.num-card.selected{background:#E8F0FF;transform:scale(1.06)}
+.num-card.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.num-card.dim{opacity:.32;pointer-events:none}
+.q1 svg.lines{pointer-events:none;z-index:5}
+
+/* ===== 题型2：圈一圈 / 题型6：数一数 ===== */
+.q2-task{text-align:center;font-size:42px;font-weight:900;margin:6px 0 46px}
+.q2-grid{position:relative;display:flex;flex-wrap:wrap;gap:22px;justify-content:center}
+.animal-pick{
+  position:relative;width:142px;height:142px;border-radius:50%;border:none;
+  background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.1);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:transform .1s;padding:0;
+}
+.animal-pick:hover{transform:scale(1.05)}
+.animal-pick img{width:124px;height:124px;object-fit:contain;pointer-events:none}
+.animal-pick.picked{box-shadow:0 0 0 10px var(--accent)}
+.animal-pick .idx{
+  position:absolute;top:-10px;right:-10px;width:54px;height:54px;border-radius:50%;
+  background:var(--ok);color:#fff;font-size:30px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 3px 6px rgba(0,0,0,.25);
+}
+.q2-grid svg.circle-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+@keyframes ringGrow{from{transform:scale(.55);opacity:.2}to{transform:scale(1);opacity:1}}
+.q2-grid svg.circle-overlay ellipse{transform-box:fill-box;transform-origin:center;animation:ringGrow .5s ease}
+.q2-info{text-align:center;font-size:32px;font-weight:700;color:var(--ink2);margin-top:22px}
+.q2-actions{display:flex;gap:16px;justify-content:center;margin-top:48px;flex-wrap:wrap}
+
+/* ===== 题型3：比大小 ===== */
+.q3-rows{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.q3-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-start;align-items:center}
+.q3-label{font-size:36px;font-weight:900;color:#7A6A4F;margin-right:14px;flex:none}
+.q3-row img{width:84px;height:84px;object-fit:contain;display:block}
+.q3-qa{text-align:center;margin-top:44px}
+.q3-btns{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.ans-btn{
+  font-size:34px;font-weight:900;padding:20px 46px;border-radius:999px;
+  border:4px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;font-family:inherit;
+  transition:border-color .15s,color .15s,transform .1s;
+}
+.ans-btn:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.04)}
+.ans-btn.correct{background:var(--ok);border-color:var(--ok);color:#fff}
+.ans-btn.dim{opacity:.38;pointer-events:none}
+
+/* ===== 题型4：找最多最少 ===== */
+.q4-task{text-align:center;font-size:42px;font-weight:900;margin-bottom:28px}
+.q4-task b{color:var(--accent)}
+.q4-groups{display:flex;gap:28px;justify-content:center;flex-wrap:wrap}
+.q4-group{
+  width:auto;flex:1 1 240px;max-width:340px;min-height:300px;background:#FBF4E4;border:6px solid transparent;border-radius:30px;
+  padding:20px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:14px;
+  font-family:inherit;transition:border-color .15s,background .15s,transform .1s;
+}
+.q4-group:hover{border-color:var(--blue);transform:scale(1.03)}
+.q4-group .gn{font-size:34px;font-weight:900;color:var(--ink)}
+.q4-group .gi{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.q4-group .gi img{width:78px;height:78px;object-fit:contain}
+.q4-group.ok{border-color:var(--ok);background:#E5F8EE}
+.q4-group.dim{opacity:.4;pointer-events:none}
+
+/* ===== 题型6：数一数（选数字） ===== */
+.q6-options{margin:24px auto 0;text-align:center}
+.q6-question{font-size:34px;font-weight:900;color:var(--accent);margin-bottom:16px}
+.q6-nums{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.q6-num{width:104px;height:118px;border-radius:22px;border:4px solid var(--blue);background:#fff;font-size:62px;font-weight:900;color:var(--blue);cursor:pointer;font-family:inherit;flex:none}
+.q6-num.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.q6-num.dim{opacity:.3;pointer-events:none}
+
+/* ===== 题型7：找第几 ===== */
+.q7-task{display:flex;align-items:center;justify-content:center;gap:12px;text-align:center;font-size:38px;font-weight:900;margin:6px 0 30px;flex-wrap:wrap}
+.q7-target img{width:84px;height:84px;object-fit:contain}
+.q7-task b{color:var(--accent)}
+.q7-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:34px}
+.q7-animal{width:96px;height:96px;border-radius:24px;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;flex:none}
+.q7-animal img{width:86px;height:86px;object-fit:contain}
+.q7-animal.hl{box-shadow:0 0 0 6px var(--ok)}
+.q7-answers{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.q7-num{width:104px;height:118px;border-radius:22px;border:4px solid var(--blue);background:#fff;font-size:62px;font-weight:900;color:var(--blue);cursor:pointer;font-family:inherit;flex:none}
+.q7-num.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.q7-num.dim{opacity:.3;pointer-events:none}
+.q7-choice{width:132px;height:132px;border-radius:26px;border:4px solid var(--line);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.q7-choice img{width:112px;height:112px;object-fit:contain;pointer-events:none}
+.q7-choice.ok{border-color:var(--ok);background:#E5F8EE}
+.q7-choice.dim{opacity:.3;pointer-events:none}
+
+/* ===== 题型5：找规律 ===== */
+.q5{display:flex;flex-direction:column;align-items:center;gap:28px}
+.q5-tip{font-size:32px;font-weight:700;color:var(--ink2);text-align:center}
+.caterpillar{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;justify-content:center}
+.cat-head{width:152px;height:152px;object-fit:contain;flex:none}
+.seg{
+  width:110px;height:110px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:60px;font-weight:900;font-family:inherit;color:#fff;
+  background:linear-gradient(145deg,#5FBF5F,#3FA24B);
+  box-shadow:0 5px 12px rgba(63,162,75,.35);border:none;cursor:default;flex:none;
+}
+.seg.blank{
+  background:#fff;color:#B9A9D0;border:4px dashed #B9A9D0;cursor:pointer;box-shadow:none;
+  transition:border-color .15s,background .15s;
+}
+.seg.blank:hover{background:#F3ECFF;border-color:#8E4FD0}
+.seg.blank.active{background:#F3ECFF;border-color:var(--ok);border-style:solid}
+.seg.filled-ok{background:linear-gradient(145deg,#FFC93F,#FF9F2E);box-shadow:0 5px 12px rgba(255,159,46,.4)}
+.digit-picker{
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  background:#F3ECFF;border-radius:28px;padding:16px 18px;
+}
+.digit-picker button{
+  width:84px;height:90px;border-radius:18px;border:3px solid var(--blue);background:#fff;
+  font-size:46px;font-weight:900;color:var(--blue);cursor:pointer;font-family:inherit;
+}
+.digit-picker button:hover{background:#E8F0FF}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-9px)}75%{transform:translateX(9px)}}
+.shake{animation:shake .25s}
+
+/* ===== 底栏 ===== */
+.footer{display:flex;flex-direction:column;align-items:center;gap:16px;padding-top:6px}
+.feedback{min-height:60px;font-size:38px;font-weight:900;text-align:center;line-height:1.4}
+.feedback.ok{color:var(--ok)}
+.feedback.err{color:var(--err)}
+.next-btn{
+  width:min(380px,80%);height:92px;border-radius:46px;border:none;
+  background:var(--accent);color:#fff;font-size:46px;font-weight:900;font-family:inherit;cursor:pointer;
+  box-shadow:0 8px 0 #C94F1D,0 14px 22px rgba(255,122,61,.32);
+  transition:transform .08s,box-shadow .08s;
+}
+.next-btn:hover{filter:brightness(1.04)}
+.next-btn:active{transform:translateY(6px);box-shadow:0 2px 0 #C94F1D,0 8px 14px rgba(255,122,61,.3)}
+
+/* 完成动画 */
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
+.pop{animation:pop .45s ease}
+
+/* ===== 响应式 ===== */
+@media (max-width: 960px){
+  #app{padding:18px 18px 22px}
+  .titles h1{font-size:40px}
+  .titles p{font-size:26px}
+  .badge{width:94px;height:94px}
+  .badge .n{font-size:40px}
+  .stage-card{padding:26px 18px}
+  .num-card{width:88px;height:102px;font-size:52px}
+  .chip{width:72px;height:72px}
+  .chip img{width:64px;height:64px}
+  .animal-pick{width:104px;height:104px}
+  .animal-pick img{width:92px;height:92px}
+  .q3-row img{width:64px;height:64px}
+  .gl{font-size:28px}
+  .q3-label{font-size:30px}
+  .cell img,.cell .hole{width:64px;height:64px}
+  .seg{width:84px;height:84px;font-size:46px}
+  .cat-head{width:118px;height:118px}
+  .digit-picker button{width:64px;height:70px;font-size:36px}
+  .feedback{font-size:30px}
+  .next-btn{height:78px;font-size:36px}
+  .q2-task,.q4-task{font-size:32px}
+  .q5-tip{font-size:26px}
+  .q4-group{flex:1 1 180px;max-width:260px}
+  .q4-group .gi img{width:60px;height:60px}
+  .ans-btn{font-size:28px;padding:16px 34px}
+  .sec-btn{font-size:26px}
+  .q2-info{font-size:26px}
+  .animal-pick .idx{width:44px;height:44px;font-size:26px}
+  .q6-question{font-size:28px}
+  .q6-num{width:76px;height:90px;font-size:46px}
+  .q7-task{font-size:30px}
+  .q7-animal{width:76px;height:76px}
+  .q7-animal img{width:68px;height:68px}
+  .q7-target img{width:70px;height:70px}
+  .q7-num{width:76px;height:90px;font-size:46px}
+  .q7-choice{width:104px;height:104px}
+  .q7-choice img{width:90px;height:90px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="topbar">
+    <div id="badge" class="badge badge-1"><span id="badgeNum" class="n">1</span><span id="badgeTag" class="t">连线题</span></div>
+    <div class="titles">
+      <h1 id="title">小动物找朋友</h1>
+      <p id="hint"></p>
+    </div>
+  </header>
+
+  <main id="stage" class="stage"></main>
+
+  <footer class="footer">
+    <div id="feedback" class="feedback" role="status"></div>
+    <button id="nextBtn" class="next-btn">下一题</button>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ===== 素材 ===== */
+  var ANIMALS = [
+    {name:"小兔", img:"https://aka.doubaocdn.com/s/JNVNjcO778"},
+    {name:"小猫", img:"https://aka.doubaocdn.com/s/GAUBSRgvbU"},
+    {name:"小狗", img:"https://aka.doubaocdn.com/s/VfTRmzB8gY"},
+    {name:"小熊", img:"https://aka.doubaocdn.com/s/HacVypzSyU"},
+    {name:"小猪", img:"https://aka.doubaocdn.com/s/Uzwm8Qp5LK"},
+    {name:"小鸭", img:"https://aka.doubaocdn.com/s/O5JsfAN9lQ"},
+    {name:"小鸡", img:"https://aka.doubaocdn.com/s/34bsJNV1gM"},
+    {name:"青蛙", img:"https://aka.doubaocdn.com/s/9cGqObzBZQ"},
+    {name:"熊猫", img:"https://aka.doubaocdn.com/s/XeRXRe5woX"},
+    {name:"猴子", img:"https://aka.doubaocdn.com/s/buQJjB7Vrp"},
+    {name:"老虎", img:"https://aka.doubaocdn.com/s/wYUHFpVRPG"},
+    {name:"长颈鹿", img:"https://aka.doubaocdn.com/s/KhRzEeep7y"},
+    {name:"大象", img:"https://aka.doubaocdn.com/s/BGxVudGnq6"},
+    {name:"企鹅", img:"https://aka.doubaocdn.com/s/wVNUzYUnyo"},
+    {name:"奶牛", img:"https://aka.doubaocdn.com/s/gQa93sgIzB"},
+    {name:"绵羊", img:"https://aka.doubaocdn.com/s/6KXXTKcGCY"},
+    {name:"小鹿", img:"https://aka.doubaocdn.com/s/rHEw59JdUs"},
+    {name:"狐狸", img:"https://aka.doubaocdn.com/s/mf7B6AUaCd"},
+    {name:"刺猬", img:"https://aka.doubaocdn.com/s/volNyc9fUI"},
+    {name:"恐龙", img:"https://aka.doubaocdn.com/s/2VTXFRaLlW"}
+  ];
+  var ITEMS = [
+    {name:"苹果", img:"https://aka.doubaocdn.com/s/6xYq67UPJV"},
+    {name:"香蕉", img:"https://aka.doubaocdn.com/s/tNVbv1UV3h"},
+    {name:"铅笔", img:"https://aka.doubaocdn.com/s/AlDaMsMmDA"},
+    {name:"花朵", img:"https://aka.doubaocdn.com/s/re3AUu93w5"},
+    {name:"星星", img:"https://aka.doubaocdn.com/s/s2AOLrkSMM"},
+    {name:"气球", img:"https://aka.doubaocdn.com/s/dPJMPL5Ww5"},
+    {name:"小鱼", img:"https://aka.doubaocdn.com/s/JSQC7Pk5k4"},
+    {name:"蘑菇", img:"https://aka.doubaocdn.com/s/bqviBHsTDk"},
+    {name:"棒棒糖", img:"https://aka.doubaocdn.com/s/GCud8j8v5Y"},
+    {name:"皮球", img:"https://aka.doubaocdn.com/s/SFT8TobOmB"}
+  ];
+  var CATERPILLAR_IMG = "https://aka.doubaocdn.com/s/FENgz3HzlM";
+
+  /* ===== 工具 ===== */
+  var stage = document.getElementById("stage");
+  function rand(n, m){ return Math.floor(Math.random() * (m - n + 1)) + n; }
+  function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+  function shuffle(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  function pickItems(n){
+    var pool = ITEMS.slice(), out = [];
+    while (out.length < n && pool.length){
+      var i = Math.floor(Math.random() * pool.length);
+      out.push(pool.splice(i, 1)[0]);
+    }
+    return out;
+  }
+  function pickDistinct(lo, hi, n){
+    var pool = [], out = [];
+    for (var i = lo; i <= hi; i++) pool.push(i);
+    while (out.length < n){
+      var idx = Math.floor(Math.random() * pool.length);
+      out.push(pool.splice(idx, 1)[0]);
+    }
+    return out;
+  }
+  /* 从 0..len-1 中随机挑 n 个互不相邻的位置 */
+  function pickBlanks(len, n){
+    var avail = [], taken = [];
+    for (var i = 0; i < len; i++) avail.push(i);
+    while (taken.length < n && avail.length){
+      var idx = Math.floor(Math.random() * avail.length);
+      var b = avail.splice(idx, 1)[0];
+      taken.push(b);
+      avail = avail.filter(function(x){ return Math.abs(x - b) > 1; });
+    }
+    return taken.sort(function(a,b){ return a - b; });
+  }
+
+  /* ===== 音效 ===== */
+  var actx = null;
+  function ensureCtx(){
+    if (!actx){
+      try { actx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){}
+    }
+    if (actx && actx.state === "suspended") actx.resume();
+  }
+  function tone(freq, delay, dur){
+    if (!actx) return;
+    var o = actx.createOscillator(), g = actx.createGain();
+    o.type = "sine"; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, actx.currentTime + delay);
+    g.gain.exponentialRampToValueAtTime(0.22, actx.currentTime + delay + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + delay + dur);
+    o.connect(g); g.connect(actx.destination);
+    o.start(actx.currentTime + delay);
+    o.stop(actx.currentTime + delay + dur + 0.05);
+  }
+  function sfxOk(){ ensureCtx(); tone(523, 0, 0.16); tone(784, 0.12, 0.22); }
+  function sfxErr(){ ensureCtx(); tone(220, 0, 0.22); }
+
+  /* ===== 全局状态 ===== */
+  var quiz = { no: 1, type: 0, data: null, done: false };
+
+  var TITLES = {
+    1: { tag:"连线题",     title:"小动物找朋友",     hint:"数一数上面有几只小动物，再点一点下面正确的数字，把它们连起来。" },
+    2: { tag:"圈一圈",     title:"圈一圈",           hint:"听老师的话：圈出指定数量的小动物，再点检查。" },
+    3: { tag:"比大小",     title:"比一比 谁更多",     hint:"上面和下面一组一组对着看：哪一组多？还是一样多？" },
+    4: { tag:"找最多和最少", title:"谁最多 谁最少",   hint:"先点出最多的那一组，再点出最少的那一组。" },
+    5: { tag:"找规律",     title:"毛毛虫的数数节",     hint:"毛毛虫身上的数字按顺序排，把空着的数补上吧。" },
+    6: { tag:"数一数",     title:"一起来数一数",       hint:"点一只，数一只，数一数这里一共有几只小动物。" },
+    7: { tag:"找第几",     title:"谁排第几",           hint:"先看题目从哪边数：从左往右，还是从右往左？再数一数它的位置。" }
+  };
+
+  /* ===== 题目生成 ===== */
+  function genQ1(){
+    return {
+      animal: pick(ANIMALS),
+      count: rand(1, 10),
+      cards: shuffle([1,2,3,4,5,6,7,8,9,10])
+    };
+  }
+  function genQ2(){
+    var total = rand(1, 10);
+    return { animal: pick(ANIMALS), total: total, target: rand(1, total), picked: [] };
+  }
+  function genQ3(){
+    var pair = pickItems(2);
+    return { a: pair[0], b: pair[1], countA: rand(1, 10), countB: rand(1, 10) };
+  }
+  function genQ4(){
+    var n = rand(3, 4);
+    var items = pickItems(n);
+    var counts = pickDistinct(1, 10, n);
+    var groups = [];
+    for (var i = 0; i < n; i++){
+      groups.push({ name: items[i].name, img: items[i].img, count: counts[i] });
+    }
+    return {
+      groups: groups,
+      maxIdx: counts.indexOf(Math.max.apply(null, counts)),
+      minIdx: counts.indexOf(Math.min.apply(null, counts)),
+      phase: "max"
+    };
+  }
+  function genQ5(){
+    var len = rand(5, 10);
+    var asc = Math.random() < 0.5;
+    var start = asc ? rand(1, 10 - len + 1) : rand(len, 10);
+    var seq = [];
+    for (var i = 0; i < len; i++) seq.push(asc ? start + i : start - i);
+    var blankCount;
+    if (len === 5) blankCount = 2;
+    else if (len < 8) blankCount = 3;   /* 6、7 节：3 个空白 */
+    else blankCount = 4;                /* 8、9、10 节：4 个空白 */
+    var blanks = pickBlanks(len, blankCount);
+    return { len: len, seq: seq, blanks: blanks, asc: asc, filled: [], activeBlank: null };
+  }
+  function genQ6(){
+    var total = rand(1, 10);
+    var opts = [total], pool = [];
+    for (var k = 1; k <= 10; k++) if (k !== total) pool.push(k);
+    while (opts.length < 4){
+      var i = Math.floor(Math.random() * pool.length);
+      opts.push(pool.splice(i, 1)[0]);
+    }
+    opts = shuffle(opts);
+    return { animal: pick(ANIMALS), total: total, counted: 0, phase: "count", options: opts };
+  }
+  /* 找第几：一排 6-8 只不同小动物，问"谁排第几"或"排第几的是谁" */
+  function genQ7(){
+    var n = rand(6, 8);
+    var pool = ANIMALS.slice(), row = [];
+    while (row.length < n){
+      var i = Math.floor(Math.random() * pool.length);
+      row.push(pool.splice(i, 1)[0]);
+    }
+    var dir = Math.random() < 0.5 ? "L" : "R";
+    var kind = Math.random() < 0.5 ? "who" : "which";
+    var idx = rand(0, n - 1);
+    var pos = dir === "L" ? idx + 1 : n - idx;
+    var others = row.filter(function(_, j){ return j !== idx; });
+    var distract = [], opool = others.slice();
+    while (distract.length < 3 && opool.length){
+      var j = Math.floor(Math.random() * opool.length);
+      distract.push(opool.splice(j, 1)[0]);
+    }
+    var choices = shuffle([row[idx]].concat(distract));
+    return { row: row, dir: dir, kind: kind, idx: idx, pos: pos, choices: choices };
+  }
+  var GEN = { 1: genQ1, 2: genQ2, 3: genQ3, 4: genQ4, 5: genQ5, 6: genQ6, 7: genQ7 };
+
+  /* ===== 视图渲染 ===== */
+  function view1(){
+    var d = quiz.data;
+    var chips = "";
+    for (var i = 0; i < d.count; i++){
+      chips += '<span class="chip"><img src="' + d.animal.img + '" alt=""></span>';
+    }
+    var cards = d.cards.map(function(n){
+      return '<button class="num-card" data-action="num" data-num="' + n + '">' + n + "</button>";
+    }).join("");
+    return '<div class="stage-card q1">' +
+      '<div class="q1-top">' +
+        '<button class="animal-group" data-action="group" aria-label="小动物们">' + chips + "</button>" +
+      "</div>" +
+      '<div class="q1-cards">' + cards + "</div>" +
+    "</div>";
+  }
+  function view2(){
+    var d = quiz.data;
+    var grid = "";
+    for (var i = 0; i < d.total; i++){
+      grid += '<button class="animal-pick" data-action="pick" data-i="' + i + '">' +
+        '<img src="' + d.animal.img + '" alt=""></button>';
+    }
+    return '<div class="stage-card q2">' +
+      '<div class="q2-task">请圈出 <span class="hl">' + d.target + "</span> 只" + d.animal.name + "</div>" +
+      '<div class="q2-grid">' + grid + "</div>" +
+      '<div class="q2-actions">' +
+        '<button class="sec-btn" data-action="check">检查</button>' +
+        '<button class="sec-btn ghost" data-action="reset">重新开始</button>' +
+      "</div>" +
+    "</div>";
+  }
+  function view3(){
+    var d = quiz.data;
+    var cellA = '<span class="q3-label">' + d.a.name + "</span>";
+    var cellB = '<span class="q3-label">' + d.b.name + "</span>";
+    for (var c = 0; c < d.countA; c++){
+      cellA += '<span class="cell"><img src="' + d.a.img + '" alt=""></span>';
+    }
+    for (var c = 0; c < d.countB; c++){
+      cellB += '<span class="cell"><img src="' + d.b.img + '" alt=""></span>';
+    }
+    return '<div class="stage-card q3">' +
+      '<div class="q3-rows">' +
+        '<div class="q3-row">' + cellA + "</div>" +
+        '<div class="q3-row">' + cellB + "</div>" +
+      "</div>" +
+      '<div class="q3-qa">' +
+        '<div class="q3-btns">' +
+          '<button class="ans-btn" data-action="answer" data-a="a">' + d.a.name + "多</button>" +
+          '<button class="ans-btn" data-action="answer" data-a="eq">一样多</button>' +
+          '<button class="ans-btn" data-action="answer" data-a="b">' + d.b.name + "多</button>" +
+        "</div>" +
+      "</div>" +
+    "</div>";
+  }
+  function view4(){
+    var d = quiz.data;
+    var groups = d.groups.map(function(g, i){
+      var imgs = "";
+      for (var k = 0; k < g.count; k++) imgs += '<img src="' + g.img + '" alt="">';
+      return '<button class="q4-group" data-action="pick" data-i="' + i + '">' +
+        '<span class="gn">' + g.name + "</span>" +
+        '<span class="gi">' + imgs + "</span>" +
+      "</button>";
+    }).join("");
+    return '<div class="stage-card q4">' +
+      '<div class="q4-task" id="q4task">问题 1：哪一组<b>最多</b>？点一点。</div>' +
+      '<div class="q4-groups">' + groups + "</div>" +
+    "</div>";
+  }
+  function view5(){
+    var d = quiz.data;
+    var segs = d.seq.map(function(v, i){
+      var blank = d.blanks.indexOf(i) >= 0;
+      return '<button class="seg ' + (blank ? "blank" : "") + '"' +
+        (blank ? ' data-action="blank" data-i="' + i + '"' : " disabled") + ">" +
+        (blank ? "?" : v) + "</button>";
+    }).join("");
+    var digits = [0,1,2,3,4,5,6,7,8,9,10].map(function(n){
+      return '<button data-action="digit" data-n="' + n + '">' + n + "</button>";
+    }).join("");
+    return '<div class="stage-card q5">' +
+      '<div class="q5-tip">毛毛虫身上的数字按' + (d.asc ? "从小到大" : "从大到小") + "排列，把空着的数填上吧！</div>" +
+      '<div class="caterpillar">' +
+        '<img class="cat-head" src="' + CATERPILLAR_IMG + '" alt="毛毛虫">' + segs +
+      "</div>" +
+      '<div class="digit-picker" id="picker" hidden>' + digits + "</div>" +
+    "</div>";
+  }
+  function view6(){
+    var d = quiz.data;
+    var grid = "";
+    for (var i = 0; i < d.total; i++){
+      grid += '<button class="animal-pick" data-action="pick" data-i="' + i + '">' +
+        '<img src="' + d.animal.img + '" alt=""></button>';
+    }
+    return '<div class="stage-card q6">' +
+      '<div class="q2-task">数一数：这里一共有几只' + d.animal.name + "？</div>" +
+      '<div class="q2-grid">' + grid + "</div>" +
+      '<div class="q6-options"></div>' +
+      '<div class="q2-actions">' +
+        '<button class="sec-btn ghost" data-action="reset">重新开始</button>' +
+      "</div>" +
+    "</div>";
+  }
+  function view7(){
+    var d = quiz.data;
+    var dirTxt = d.dir === "L" ? "从左往右数" : "从右往左数";
+    var rowHtml = d.row.map(function(a, i){
+      return '<span class="q7-animal" data-i="' + i + '"><img src="' + a.img + '" alt=""></span>';
+    }).join("");
+    var answers;
+    if (d.kind === "who"){
+      answers = "";
+      for (var k = 1; k <= d.row.length; k++){
+        answers += '<button class="q7-num" data-action="num" data-n="' + k + '">' + k + "</button>";
+      }
+      answers = '<div class="q7-answers">' + answers + "</div>";
+    } else {
+      var cbs = d.choices.map(function(a){
+        var ri = -1;
+        for (var j = 0; j < d.row.length; j++){
+          if (d.row[j].name === a.name){ ri = j; break; }
+        }
+        return '<button class="q7-choice" data-action="choice" data-i="' + ri + '"><img src="' + a.img + '" alt=""></button>';
+      }).join("");
+      answers = '<div class="q7-answers">' + cbs + "</div>";
+    }
+    var task = d.kind === "who"
+      ? '<div class="q7-task">' + dirTxt + '，<span class="q7-target"><img src="' + d.row[d.idx].img + '" alt=""></span>排第几？</div>'
+      : '<div class="q7-task">' + dirTxt + '，排第 <b>' + d.pos + "</b> 的是谁？</div>";
+    return '<div class="stage-card q7">' +
+      task +
+      '<div class="q7-row">' + rowHtml + "</div>" +
+      answers +
+    "</div>";
+  }
+  var VIEWS = { 1: view1, 2: view2, 3: view3, 4: view4, 5: view5, 6: view6, 7: view7 };
+
+  /* ===== 反馈 ===== */
+  var fb = document.getElementById("feedback");
+  function feedback(msg, cls){
+    fb.textContent = msg;
+    fb.className = "feedback " + (cls || "");
+  }
+  function feedbackClear(){ fb.textContent = ""; fb.className = "feedback"; }
+
+  /* ===== 题型1 交互 ===== */
+  /* ===== 题型1 交互（每条线独立小画布，不覆盖按钮，确保数字卡片可点） ===== */
+  function q1Draw(n, ok){
+    var box = stage.querySelector(".q1");
+    var a = stage.querySelector(".animal-group");
+    var b = stage.querySelector('.num-card[data-num="' + n + '"]');
+    if (!box || !a || !b) return;
+    var br = box.getBoundingClientRect();
+    var r1 = a.getBoundingClientRect(), r2 = b.getBoundingClientRect();
+    var x1 = r1.left + r1.width / 2 - br.left;
+    var y1 = r1.top + r1.height / 2 - br.top;
+    var x2 = r2.left + r2.width / 2 - br.left;
+    var y2 = r2.top + r2.height / 2 - br.top;
+    var pad = 12;
+    var minX = Math.min(x1, x2) - pad, minY = Math.min(y1, y2) - pad;
+    var w = Math.abs(x1 - x2) + pad * 2, h = Math.abs(y1 - y2) + pad * 2;
+    var ns = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("class", "lines");
+    svg.setAttribute("width", w.toFixed(1));
+    svg.setAttribute("height", h.toFixed(1));
+    svg.setAttribute("pointer-events", "none");
+    svg.style.position = "absolute";
+    svg.style.left = minX.toFixed(1) + "px";
+    svg.style.top = minY.toFixed(1) + "px";
+    svg.style.pointerEvents = "none";
+    var ln = document.createElementNS(ns, "line");
+    ln.setAttribute("x1", (x1 - minX).toFixed(1));
+    ln.setAttribute("y1", (y1 - minY).toFixed(1));
+    ln.setAttribute("x2", (x2 - minX).toFixed(1));
+    ln.setAttribute("y2", (y2 - minY).toFixed(1));
+    ln.setAttribute("stroke", ok ? "#22A06B" : "#E5484D");
+    ln.setAttribute("stroke-width", ok ? 10 : 8);
+    ln.setAttribute("stroke-linecap", "round");
+    svg.appendChild(ln);
+    box.appendChild(svg);
+    if (!ok) setTimeout(function(){ svg.remove(); }, 1000);
+  }
+  function q1ClearSel(){
+    stage.querySelectorAll(".q1 .selected").forEach(function(x){ x.classList.remove("selected"); });
+    q1SelGroup = false;
+  }
+  var q1SelGroup = false;
+
+  /* 连线判定：校验数量并画线 */
+  function q1Connect(n){
+    var d = quiz.data;
+    if (n === d.count){
+      quiz.done = true;
+      q1Draw(n, true);
+      var g = stage.querySelector(".animal-group");
+      g.classList.remove("selected"); g.classList.add("ok");
+      var c = stage.querySelector('.num-card[data-num="' + n + '"]');
+      c.classList.remove("selected"); c.classList.add("ok");
+      stage.querySelectorAll(".num-card").forEach(function(x){
+        if (!x.classList.contains("ok")) x.classList.add("dim");
+      });
+      feedback("太棒啦！" + d.count + " 只" + d.animal.name + " 连 " + d.count + "！", "ok");
+      sfxOk();
+    } else {
+      q1Draw(n, false);
+      q1ClearSel();
+      feedback("再数一数，一共有几只小动物？", "err");
+      sfxErr();
+    }
+  }
+
+  /* ===== 题型2：检查正确后用一个大圈圈住选中的小动物 ===== */
+  function q2DrawBigCircle(picks){
+    var grid = stage.querySelector(".q2-grid");
+    if (!grid || !picks || !picks.length) return;
+    var gr = grid.getBoundingClientRect();
+    var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    picks.forEach(function(p){
+      var r = p.getBoundingClientRect();
+      if (r.left < minX) minX = r.left;
+      if (r.top < minY) minY = r.top;
+      if (r.right > maxX) maxX = r.right;
+      if (r.bottom > maxY) maxY = r.bottom;
+    });
+    var pad = 24;
+    minX -= pad; minY -= pad; maxX += pad; maxY += pad;
+    var cx = (minX + maxX) / 2 - gr.left;
+    var cy = (minY + maxY) / 2 - gr.top;
+    var rx = Math.max((maxX - minX) / 2, 44);
+    var ry = Math.max((maxY - minY) / 2, 44);
+    var ns = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("class", "circle-overlay");
+    var ell = document.createElementNS(ns, "ellipse");
+    ell.setAttribute("cx", cx.toFixed(1));
+    ell.setAttribute("cy", cy.toFixed(1));
+    ell.setAttribute("rx", rx.toFixed(1));
+    ell.setAttribute("ry", ry.toFixed(1));
+    ell.setAttribute("fill", "rgba(34,160,107,.12)");
+    ell.setAttribute("stroke", "#22A06B");
+    ell.setAttribute("stroke-width", "8");
+    svg.appendChild(ell);
+    grid.appendChild(svg);
+  }
+
+  /* ===== 题型5 交互 ===== */
+  function q5Fill(seg, n){
+    var d = quiz.data;
+    seg.classList.remove("blank", "active");
+    seg.classList.add("filled-ok");
+    seg.textContent = n;
+    seg.removeAttribute("data-action");
+    seg.disabled = true;
+    d.filled.push(d.activeBlank);
+    d.activeBlank = null;
+    document.getElementById("picker").hidden = true;
+  }
+
+  /* ===== 事件处理器 ===== */
+  var H = {
+    1: {
+      group: function(){
+        if (quiz.done) return;
+        var card = stage.querySelector(".num-card.selected");
+        if (card){ q1Connect(+card.getAttribute("data-num")); return; }
+        q1ClearSel();
+        q1SelGroup = true;
+        stage.querySelector(".animal-group").classList.add("selected");
+      },
+      num: function(el){
+        if (quiz.done) return;
+        if (q1SelGroup){ q1Connect(+el.getAttribute("data-num")); return; }
+        q1ClearSel();
+        el.classList.add("selected");
+        feedback("再点一点上面的小动物，就连起来啦！", "");
+      }
+    },
+    2: {
+      pick: function(el){
+        var d = quiz.data;
+        if (d.done) return;
+        var i = +el.getAttribute("data-i");
+        if (el.classList.contains("picked")) return;
+        if (i !== d.picked.length){
+          feedback("要按顺序点哦，从第一只开始。", "err");
+          sfxErr();
+          return;
+        }
+        d.picked.push(i);
+        el.classList.add("picked");
+        sfxOk();
+      },
+      check: function(){
+        var d = quiz.data;
+        var picks = stage.querySelectorAll(".animal-pick.picked");
+        var n = picks.length;
+        if (n === d.target){
+          quiz.done = true;
+          q2DrawBigCircle(picks);
+          picks.forEach(function(x){ x.classList.remove("picked", "green"); });
+          feedback("太棒啦！正好圈出 " + d.target + " 只！", "ok");
+          sfxOk();
+        } else {
+          picks.forEach(function(x){ x.classList.remove("picked", "green"); });
+          d.picked = [];
+          feedback("没有选对，请重新选择。", "err");
+          sfxErr();
+        }
+      },
+      reset: function(){ redraw(); }
+    },
+    3: {
+      answer: function(el){
+        var d = quiz.data, ans = el.getAttribute("data-a");
+        var correct = d.countA > d.countB ? "a" : (d.countA < d.countB ? "b" : "eq");
+        if (ans === correct){
+          quiz.done = true;
+          el.classList.add("correct");
+          stage.querySelectorAll(".ans-btn").forEach(function(x){
+            if (!x.classList.contains("correct")) x.classList.add("dim");
+          });
+          if (d.countA > d.countB){
+            feedback("太棒啦！" + d.a.name + "多！", "ok");
+          } else if (d.countA < d.countB){
+            feedback("太棒啦！" + d.b.name + "多！", "ok");
+          } else {
+            feedback("太棒啦！两边一样多！", "ok");
+          }
+          sfxOk();
+        } else {
+          feedback("再数一数，一组一组对着数。", "err");
+          sfxErr();
+        }
+      }
+    },
+    4: {
+      pick: function(el){
+        var d = quiz.data, i = +el.getAttribute("data-i");
+        if (d.phase === "max"){
+          if (i === d.maxIdx){
+            el.classList.add("ok");
+            d.phase = "min";
+            document.getElementById("q4task").innerHTML = "问题 2：哪一组<b>最少</b>？点一点。";
+            feedback("对啦！这一组最多。再找一找最少的那组。", "ok");
+            sfxOk();
+          } else {
+            feedback("再数一数，哪一组最多？", "err");
+            sfxErr();
+          }
+        } else {
+          if (i === d.minIdx){
+            quiz.done = true;
+            el.classList.add("ok");
+            stage.querySelectorAll(".q4-group").forEach(function(x){
+              if (!x.classList.contains("ok")) x.classList.add("dim");
+            });
+            feedback("太棒啦！最多和最少的组都找到啦！", "ok");
+            sfxOk();
+          } else {
+            feedback("再数一数，哪一组最少？", "err");
+            sfxErr();
+          }
+        }
+      }
+    },
+    5: {
+      blank: function(el){
+        var d = quiz.data, i = +el.getAttribute("data-i");
+        if (d.activeBlank === i){
+          d.activeBlank = null;
+          el.classList.remove("active");
+          document.getElementById("picker").hidden = true;
+          return;
+        }
+        d.activeBlank = i;
+        stage.querySelectorAll(".seg.blank").forEach(function(x){ x.classList.remove("active"); });
+        el.classList.add("active");
+        document.getElementById("picker").hidden = false;
+      },
+      digit: function(el){
+        var d = quiz.data;
+        if (d.activeBlank === null) return;
+        var n = +el.getAttribute("data-n"), i = d.activeBlank;
+        if (n === d.seq[i]){
+          q5Fill(stage.querySelector('.seg[data-i="' + i + '"]'), n);
+          if (d.filled.length === d.blanks.length){
+            quiz.done = true;
+            feedback("太棒啦！毛毛虫的数都填对啦！", "ok");
+            sfxOk();
+          } else {
+            feedback("对啦！再看看还有哪里空着。", "ok");
+            sfxOk();
+          }
+        } else {
+          var picker = document.getElementById("picker");
+          picker.classList.remove("shake");
+          void picker.offsetWidth;
+          picker.classList.add("shake");
+          feedback("再想一想，按顺序应该是几？", "err");
+          sfxErr();
+        }
+      }
+    },
+    6: {
+      pick: function(el){
+        var d = quiz.data;
+        if (d.phase !== "count") return;
+        if (el.classList.contains("picked")) return;
+        d.counted++;
+        el.classList.add("picked");
+        sfxOk();
+        if (d.counted === d.total){
+          d.phase = "pick";
+          var optBox = stage.querySelector(".q6-options");
+          var html = '<div class="q6-question">一共有几只？</div><div class="q6-nums">';
+          d.options.forEach(function(n){
+            html += '<button class="q6-num" data-action="num" data-n="' + n + '">' + n + "</button>";
+          });
+          html += "</div>";
+          optBox.innerHTML = html;
+        }
+      },
+      num: function(el){
+        var d = quiz.data;
+        var n = +el.getAttribute("data-n");
+        if (n === d.total){
+          quiz.done = true;
+          el.classList.add("ok");
+          stage.querySelectorAll(".q6-num").forEach(function(x){
+            if (!x.classList.contains("ok")) x.classList.add("dim");
+          });
+          feedback("对啦！这里一共有 " + d.total + " 只" + d.animal.name + "！", "ok");
+          sfxOk();
+        } else {
+          feedback("再数一数，选一选正确的数字。", "err");
+          sfxErr();
+        }
+      },
+      reset: function(){ redraw(); }
+    },
+    7: {
+      num: function(el){
+        var d = quiz.data;
+        var n = +el.getAttribute("data-n");
+        if (n === d.pos){
+          quiz.done = true;
+          el.classList.add("ok");
+          stage.querySelectorAll(".q7-num").forEach(function(x){
+            if (!x.classList.contains("ok")) x.classList.add("dim");
+          });
+          stage.querySelector('.q7-animal[data-i="' + d.idx + '"]').classList.add("hl");
+          var dirTxt = d.dir === "L" ? "从左往右数" : "从右往左数";
+          feedback("对啦！" + dirTxt + "，它排第 " + d.pos + "！", "ok");
+          sfxOk();
+        } else {
+          feedback("再数一数，看从哪边开始数。", "err");
+          sfxErr();
+        }
+      },
+      choice: function(el){
+        var d = quiz.data;
+        var i = +el.getAttribute("data-i");
+        if (i === d.idx){
+          quiz.done = true;
+          el.classList.add("ok");
+          stage.querySelectorAll(".q7-choice").forEach(function(x){
+            if (!x.classList.contains("ok")) x.classList.add("dim");
+          });
+          stage.querySelector('.q7-animal[data-i="' + d.idx + '"]').classList.add("hl");
+          var dirTxt = d.dir === "L" ? "从左往右数" : "从右往左数";
+          feedback("对啦！" + dirTxt + "，排第 " + d.pos + " 的是它！", "ok");
+          sfxOk();
+        } else {
+          feedback("再数一数，看从哪边开始数。", "err");
+          sfxErr();
+        }
+      }
+    }
+  };
+
+  stage.addEventListener("click", function(e){
+    var g = e.target.closest("[data-action]");
+    if (!g) return;
+    var act = g.getAttribute("data-action");
+    if (quiz.done && act !== "reset") return;
+    var h = H[quiz.type];
+    if (!h || typeof h[act] !== "function") return;
+    h[act](g);
+  });
+
+  /* ===== 渲染入口 ===== */
+  function redraw(){
+    quiz.done = false;
+    stage.innerHTML = VIEWS[quiz.type]();
+    feedbackClear();
+  }
+  function render(){
+    quiz.done = false;
+    quiz.data = GEN[quiz.type]();
+    var meta = TITLES[quiz.type];
+    document.getElementById("badge").className = "badge badge-" + quiz.type;
+    document.getElementById("badgeNum").textContent = quiz.no;
+    document.getElementById("badgeTag").textContent = meta.tag;
+    document.getElementById("title").textContent = meta.title;
+    document.getElementById("hint").textContent = meta.hint;
+    stage.innerHTML = VIEWS[quiz.type]();
+    feedbackClear();
+  }
+
+  document.getElementById("nextBtn").addEventListener("click", function(){
+    var t;
+    do { t = rand(1, 7); } while (t === quiz.type);
+    quiz.no++;
+    quiz.type = t;
+    render();
+  });
+
+  /* ===== 启动 ===== */
+  quiz.type = rand(1, 7);
+  render();
+})();
+</script>
+</body>
+</html>
