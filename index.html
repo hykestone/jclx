@@ -43,6 +43,7 @@ body{
 .badge-5{background:linear-gradient(145deg,#F179C9,#E2479E)}
 .badge-6{background:linear-gradient(145deg,#4AD5CB,#12A8A0)}
 .badge-7{background:linear-gradient(145deg,#F2C14E,#D99A1B)}
+.badge-8{background:linear-gradient(145deg,#FF7EB6,#E84A8A)}
 .titles h1{font-size:54px;font-weight:900;letter-spacing:1px}
 .titles p{font-size:30px;font-weight:700;color:var(--ink2);margin-top:6px}
 
@@ -74,6 +75,7 @@ body{
 /* ===== 题型1：连线（一行排列） ===== */
 .q1{position:relative}
 .q1-top{margin-bottom:100px;text-align:center}
+.q1-bottom{margin-top:100px;text-align:center}
 .animal-group{
   display:inline-flex;flex-wrap:nowrap;gap:12px;justify-content:center;
   background:#FFF3E4;border:4px dashed transparent;border-radius:30px;padding:16px 22px;
@@ -119,6 +121,16 @@ body{
 .q3-rows{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
 .q3-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-start;align-items:center}
 .q3-label{font-size:36px;font-weight:900;color:#7A6A4F;margin-right:14px;flex:none}
+.q3-line{display:flex;gap:36px;justify-content:center;align-items:center;margin-top:34px;flex-wrap:wrap}
+.q3-cmp{display:flex;align-items:center;gap:10px;background:#FBF7EE;border-radius:26px;padding:16px 26px}
+.q3-mini{display:inline-flex}
+.q3-mini img{width:64px;height:64px;object-fit:contain}
+.q3-word{font-size:38px;font-weight:900;color:#7A6A4F}
+.q3-pick{display:inline-flex;gap:10px;margin-left:6px}
+.q3-opt{font-size:32px;font-weight:900;padding:8px 28px;border-radius:999px;border:4px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;font-family:inherit;transition:border-color .15s,background .15s,color .15s}
+.q3-opt.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.q3-opt.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.q3-opt.bad{background:#FFE3E3;border-color:#E5484D;color:#E5484D}
 .q3-row img{width:84px;height:84px;object-fit:contain;display:block}
 .q3-qa{text-align:center;margin-top:44px}
 .q3-btns{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
@@ -130,6 +142,8 @@ body{
 .ans-btn:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.04)}
 .ans-btn.correct{background:var(--ok);border-color:var(--ok);color:#fff}
 .ans-btn.dim{opacity:.38;pointer-events:none}
+.ans-img{display:inline-flex;vertical-align:middle;margin-right:8px}
+.ans-img img{width:56px;height:56px;object-fit:contain}
 
 /* ===== 题型4：找最多最少 ===== */
 .q4-task{text-align:center;font-size:42px;font-weight:900;margin-bottom:28px}
@@ -148,6 +162,9 @@ body{
 .q4-group.dim{opacity:.4;pointer-events:none}
 
 /* ===== 题型6：数一数（选数字） ===== */
+.q6-inline{display:inline-flex;vertical-align:middle;margin:0 6px}
+.q6-inline img{width:72px;height:72px;object-fit:contain}
+.feedback .q6-inline img{width:52px;height:52px}
 .q6-options{margin:24px auto 0;text-align:center}
 .q6-question{font-size:34px;font-weight:900;color:var(--accent);margin-bottom:16px}
 .q6-nums{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
@@ -171,6 +188,24 @@ body{
 .q7-choice img{width:112px;height:112px;object-fit:contain;pointer-events:none}
 .q7-choice.ok{border-color:var(--ok);background:#E5F8EE}
 .q7-choice.dim{opacity:.3;pointer-events:none}
+
+/* ===== 题型8：画一画 ===== */
+.q8-task{text-align:center;font-size:40px;font-weight:900;margin:6px 0 30px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.q8-inline-shape{display:inline-flex;vertical-align:middle;margin:0 4px}
+.q8-inline-shape .shape-svg{width:56px;height:56px}
+.q8-inline-item{display:inline-flex;vertical-align:middle;margin:0 6px}
+.q8-inline-item img{width:64px;height:64px;object-fit:contain}
+.q8-wrap{display:flex;align-items:center;gap:44px;justify-content:center}
+.q8-shape-btn{width:132px;height:132px;border-radius:30px;border:5px dashed var(--line);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;transition:border-color .15s,transform .1s}
+.q8-shape-btn:hover{border-color:var(--accent);transform:scale(1.05)}
+.q8-shape-btn .shape-svg{width:76px;height:76px}
+.q8-grid{display:grid;gap:22px;row-gap:26px}
+.q8-cell{min-width:70px;height:96px;display:flex;align-items:center;justify-content:center}
+.q8-cell img{width:96px;height:96px;object-fit:contain}
+.q8-draw .shape-svg{width:56px;height:56px}
+.q8-actions{display:flex;justify-content:center;margin-top:30px}
+/* 通用图形：空心黑边 */
+.shape-svg{display:inline-block;width:48px;height:48px;flex:none}
 
 /* ===== 题型5：找规律 ===== */
 .q5{display:flex;flex-direction:column;align-items:center;gap:28px}
@@ -233,9 +268,16 @@ body{
   .chip img{width:64px;height:64px}
   .animal-pick{width:104px;height:104px}
   .animal-pick img{width:92px;height:92px}
+  .q1-top{margin-bottom:64px}
+  .q1-bottom{margin-top:64px}
   .q3-row img{width:64px;height:64px}
   .gl{font-size:28px}
   .q3-label{font-size:30px}
+  .q3-cmp{gap:8px;padding:12px 16px}
+  .q3-mini img{width:50px;height:50px}
+  .q3-word{font-size:30px}
+  .q3-opt{font-size:28px;padding:6px 20px}
+  .q3-line{gap:22px}
   .cell img,.cell .hole{width:64px;height:64px}
   .seg{width:84px;height:84px;font-size:46px}
   .cat-head{width:118px;height:118px}
@@ -250,6 +292,8 @@ body{
   .sec-btn{font-size:26px}
   .q2-info{font-size:26px}
   .animal-pick .idx{width:44px;height:44px;font-size:26px}
+  .q6-inline img{width:56px;height:56px}
+  .feedback .q6-inline img{width:44px;height:44px}
   .q6-question{font-size:28px}
   .q6-num{width:76px;height:90px;font-size:46px}
   .q7-task{font-size:30px}
@@ -259,6 +303,14 @@ body{
   .q7-num{width:76px;height:90px;font-size:46px}
   .q7-choice{width:104px;height:104px}
   .q7-choice img{width:90px;height:90px}
+  .q8-task{font-size:32px}
+  .q8-wrap{gap:26px}
+  .q8-inline-item img{width:52px;height:52px}
+  .q8-shape-btn{width:100px;height:100px}
+  .q8-shape-btn .shape-svg{width:56px;height:56px}
+  .q8-cell{min-width:56px;height:80px}
+  .q8-cell img{width:78px;height:78px}
+  .q8-draw .shape-svg{width:46px;height:46px}
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -269,7 +321,7 @@ body{
 <body>
 <div id="app">
   <header id="topbar">
-    <div id="badge" class="badge badge-1"><span id="badgeNum" class="n">1</span><span id="badgeTag" class="t">连线题</span></div>
+    <div id="badge" class="badge badge-1"><span id="badgeNum" class="n">1</span></div>
     <div class="titles">
       <h1 id="title">小动物找朋友</h1>
       <p id="hint"></p>
@@ -393,35 +445,47 @@ body{
   var quiz = { no: 1, type: 0, data: null, done: false };
 
   var TITLES = {
-    1: { tag:"连线题",     title:"小动物找朋友",     hint:"数一数上面有几只小动物，再点一点下面正确的数字，把它们连起来。" },
+    1: { tag:"连线题",     title:"数一数 连一连",     hint:"数一数上面有几只小动物，再点一点下面正确的数字，把它们连起来。" },
     2: { tag:"圈一圈",     title:"圈一圈",           hint:"听老师的话：圈出指定数量的小动物，再点检查。" },
-    3: { tag:"比大小",     title:"比一比 谁更多",     hint:"上面和下面一组一组对着看：哪一组多？还是一样多？" },
+    3: { tag:"比大小",     title:"比一比",           hint:"上面和下面一组一组对着看：哪一组多？还是一样多？" },
     4: { tag:"找最多和最少", title:"谁最多 谁最少",   hint:"先点出最多的那一组，再点出最少的那一组。" },
     5: { tag:"找规律",     title:"毛毛虫的数数节",     hint:"毛毛虫身上的数字按顺序排，把空着的数补上吧。" },
-    6: { tag:"数一数",     title:"一起来数一数",       hint:"点一只，数一只，数一数这里一共有几只小动物。" },
-    7: { tag:"找第几",     title:"谁排第几",           hint:"先看题目从哪边数：从左往右，还是从右往左？再数一数它的位置。" }
+    6: { tag:"数一数",     title:"数一数",           hint:"点一只，数一只，数一数这里一共有几只小动物。" },
+    7: { tag:"找第几",     title:"排一排",           hint:"先看题目从哪边数：从左往右，还是从右往左？再数一数它的位置。" },
+    8: { tag:"画一画",     title:"画一画",           hint:"" }
   };
 
   /* ===== 题目生成 ===== */
   function genQ1(){
+    var c1 = rand(4, 9), c2 = rand(4, 9);
+    while (c2 === c1){ c2 = rand(4, 9); }
     return {
       animal: pick(ANIMALS),
-      count: rand(1, 10),
-      cards: shuffle([1,2,3,4,5,6,7,8,9,10])
+      item: pick(ITEMS),
+      count: c1,
+      count2: c2,
+      cards: shuffle([1,2,3,4,5,6,7,8,9,10]),
+      phase: 1
     };
   }
   function genQ2(){
-    var total = rand(1, 10);
-    return { animal: pick(ANIMALS), total: total, target: rand(1, total), picked: [] };
+    var total = rand(6, 8);
+    var target = rand(3, Math.min(6, total - 1));
+    return { animal: pick(ANIMALS), total: total, target: target, picked: [] };
   }
   function genQ3(){
     var pair = pickItems(2);
-    return { a: pair[0], b: pair[1], countA: rand(1, 10), countB: rand(1, 10) };
+    var ca = rand(1, 10), cb = rand(1, 10);
+    while (ca === cb){ cb = rand(1, 10); }
+    return { a: pair[0], b: pair[1], countA: ca, countB: cb, sel1: null, sel2: null };
   }
   function genQ4(){
     var n = rand(3, 4);
     var items = pickItems(n);
-    var counts = pickDistinct(1, 10, n);
+    var minC = rand(1, 6);
+    var pool = [];
+    for (var k = minC; k <= minC + 4; k++) pool.push(k);
+    var counts = shuffle(pool).slice(0, n);
     var groups = [];
     for (var i = 0; i < n; i++){
       groups.push({ name: items[i].name, img: items[i].img, count: counts[i] });
@@ -478,7 +542,20 @@ body{
     var choices = shuffle([row[idx]].concat(distract));
     return { row: row, dir: dir, kind: kind, idx: idx, pos: pos, choices: choices };
   }
-  var GEN = { 1: genQ1, 2: genQ2, 3: genQ3, 4: genQ4, 5: genQ5, 6: genQ6, 7: genQ7 };
+  function shapeHtml(shape){
+    if (shape === "square"){
+      return '<svg class="shape-svg" viewBox="0 0 50 50"><rect x="6" y="6" width="38" height="38" fill="none" stroke="#333" stroke-width="5"/></svg>';
+    }
+    if (shape === "triangle"){
+      return '<svg class="shape-svg" viewBox="0 0 50 50"><polygon points="25,6 45,44 5,44" fill="none" stroke="#333" stroke-width="5" stroke-linejoin="round"/></svg>';
+    }
+    return '<svg class="shape-svg" viewBox="0 0 50 50"><circle cx="25" cy="25" r="19" fill="none" stroke="#333" stroke-width="5"/></svg>';
+  }
+  function genQ8(){
+    var shapes = ["circle", "square", "triangle"];
+    return { item: pick(ITEMS), count: rand(3, 6), shape: pick(shapes), mode: pick(["same", "less", "more"]), drawn: 0 };
+  }
+  var GEN = { 1: genQ1, 2: genQ2, 3: genQ3, 4: genQ4, 5: genQ5, 6: genQ6, 7: genQ7, 8: genQ8 };
 
   /* ===== 视图渲染 ===== */
   function view1(){
@@ -486,6 +563,10 @@ body{
     var chips = "";
     for (var i = 0; i < d.count; i++){
       chips += '<span class="chip"><img src="' + d.animal.img + '" alt=""></span>';
+    }
+    var items = "";
+    for (var j = 0; j < d.count2; j++){
+      items += '<span class="chip"><img src="' + d.item.img + '" alt=""></span>';
     }
     var cards = d.cards.map(function(n){
       return '<button class="num-card" data-action="num" data-num="' + n + '">' + n + "</button>";
@@ -495,6 +576,9 @@ body{
         '<button class="animal-group" data-action="group" aria-label="小动物们">' + chips + "</button>" +
       "</div>" +
       '<div class="q1-cards">' + cards + "</div>" +
+      '<div class="q1-bottom">' +
+        '<button class="animal-group item-group" data-action="igroup" aria-label="物品们">' + items + "</button>" +
+      "</div>" +
     "</div>";
   }
   function view2(){
@@ -505,11 +589,10 @@ body{
         '<img src="' + d.animal.img + '" alt=""></button>';
     }
     return '<div class="stage-card q2">' +
-      '<div class="q2-task">请圈出 <span class="hl">' + d.target + "</span> 只" + d.animal.name + "</div>" +
+      '<div class="q2-task">请圈出 <span class="hl">' + d.target + '</span> 只<span class="q6-inline"><img src="' + d.animal.img + '" alt=""></span></div>' +
       '<div class="q2-grid">' + grid + "</div>" +
       '<div class="q2-actions">' +
         '<button class="sec-btn" data-action="check">检查</button>' +
-        '<button class="sec-btn ghost" data-action="reset">重新开始</button>' +
       "</div>" +
     "</div>";
   }
@@ -523,17 +606,28 @@ body{
     for (var c = 0; c < d.countB; c++){
       cellB += '<span class="cell"><img src="' + d.b.img + '" alt=""></span>';
     }
+    function cmp(a1, b1, seg, sel){
+      return '<div class="q3-cmp">' +
+        '<span class="q3-mini"><img src="' + a1.img + '" alt=""></span>' +
+        '<span class="q3-word">比</span>' +
+        '<span class="q3-mini"><img src="' + b1.img + '" alt=""></span>' +
+        '<span class="q3-pick" data-seg="' + seg + '">' +
+          '<button class="q3-opt' + (sel === "more" ? " on" : "") + '" data-action="opt" data-seg="' + seg + '" data-v="more">多</button>' +
+          '<button class="q3-opt' + (sel === "less" ? " on" : "") + '" data-action="opt" data-seg="' + seg + '" data-v="less">少</button>' +
+        "</span>" +
+      "</div>";
+    }
     return '<div class="stage-card q3">' +
       '<div class="q3-rows">' +
         '<div class="q3-row">' + cellA + "</div>" +
         '<div class="q3-row">' + cellB + "</div>" +
       "</div>" +
-      '<div class="q3-qa">' +
-        '<div class="q3-btns">' +
-          '<button class="ans-btn" data-action="answer" data-a="a">' + d.a.name + "多</button>" +
-          '<button class="ans-btn" data-action="answer" data-a="eq">一样多</button>' +
-          '<button class="ans-btn" data-action="answer" data-a="b">' + d.b.name + "多</button>" +
-        "</div>" +
+      '<div class="q3-line">' +
+        cmp(d.a, d.b, 1, d.sel1) +
+        cmp(d.b, d.a, 2, d.sel2) +
+      "</div>" +
+      '<div class="q8-actions">' +
+        '<button class="sec-btn" data-action="check3">检查</button>' +
       "</div>" +
     "</div>";
   }
@@ -579,12 +673,9 @@ body{
         '<img src="' + d.animal.img + '" alt=""></button>';
     }
     return '<div class="stage-card q6">' +
-      '<div class="q2-task">数一数：这里一共有几只' + d.animal.name + "？</div>" +
+      '<div class="q2-task">数一数：这里一共有几只<span class="q6-inline"><img src="' + d.animal.img + '" alt=""></span>？</div>' +
       '<div class="q2-grid">' + grid + "</div>" +
       '<div class="q6-options"></div>' +
-      '<div class="q2-actions">' +
-        '<button class="sec-btn ghost" data-action="reset">重新开始</button>' +
-      "</div>" +
     "</div>";
   }
   function view7(){
@@ -619,21 +710,43 @@ body{
       answers +
     "</div>";
   }
-  var VIEWS = { 1: view1, 2: view2, 3: view3, 4: view4, 5: view5, 6: view6, 7: view7 };
+  function view8(){
+    var d = quiz.data;
+    var itemImg = '<span class="q8-inline-item"><img src="' + d.item.img + '" alt=""></span>';
+    var modeTxt = d.mode === "less" ? "比 " + itemImg + " 少" : (d.mode === "more" ? "比 " + itemImg + " 多" : "和 " + itemImg + " 一样多");
+    var objs = "", draws = "";
+    for (var i = 0; i < 10; i++){
+      objs += '<div class="q8-cell">' + (i < d.count ? '<img src="' + d.item.img + '" alt="">' : "") + "</div>";
+      draws += '<div class="q8-cell q8-draw" data-i="' + i + '"></div>';
+    }
+    return '<div class="stage-card q8">' +
+      '<div class="q8-task">画 <span class="q8-inline-shape">' + shapeHtml(d.shape) + "</span>，" + modeTxt + "</div>" +
+      '<div class="q8-wrap">' +
+        '<button class="q8-shape-btn" data-action="draw" aria-label="画图形">' + shapeHtml(d.shape) + "</button>" +
+        '<div class="q8-grid" style="grid-template-columns:repeat(10,minmax(70px,1fr))">' +
+          objs + draws +
+        "</div>" +
+      "</div>" +
+      '<div class="q8-actions">' +
+        '<button class="sec-btn" data-action="check">检查</button>' +
+      "</div>" +
+    "</div>";
+  }
+  var VIEWS = { 1: view1, 2: view2, 3: view3, 4: view4, 5: view5, 6: view6, 7: view7, 8: view8 };
 
   /* ===== 反馈 ===== */
   var fb = document.getElementById("feedback");
   function feedback(msg, cls){
-    fb.textContent = msg;
+    fb.innerHTML = msg;
     fb.className = "feedback " + (cls || "");
   }
   function feedbackClear(){ fb.textContent = ""; fb.className = "feedback"; }
 
   /* ===== 题型1 交互 ===== */
   /* ===== 题型1 交互（每条线独立小画布，不覆盖按钮，确保数字卡片可点） ===== */
-  function q1Draw(n, ok){
+  function q1Draw(n, ok, fromClass){
     var box = stage.querySelector(".q1");
-    var a = stage.querySelector(".animal-group");
+    var a = stage.querySelector(fromClass || ".animal-group");
     var b = stage.querySelector('.num-card[data-num="' + n + '"]');
     if (!box || !a || !b) return;
     var br = box.getBoundingClientRect();
@@ -670,28 +783,51 @@ body{
   function q1ClearSel(){
     stage.querySelectorAll(".q1 .selected").forEach(function(x){ x.classList.remove("selected"); });
     q1SelGroup = false;
+    q1SelItem = false;
   }
-  var q1SelGroup = false;
+  var q1SelGroup = false, q1SelItem = false;
 
-  /* 连线判定：校验数量并画线 */
+  /* 阶段1：动物连数字 */
   function q1Connect(n){
     var d = quiz.data;
     if (n === d.count){
-      quiz.done = true;
-      q1Draw(n, true);
+      q1Draw(n, true, ".animal-group");
       var g = stage.querySelector(".animal-group");
+      g.classList.remove("selected"); g.classList.add("ok");
+      var c = stage.querySelector('.num-card[data-num="' + n + '"]');
+      c.classList.remove("selected"); c.classList.add("ok");
+      q1ClearSel();
+      d.phase = 2;
+      feedback('第一连对啦！再数一数下面的<span class="q6-inline"><img src="' + d.item.img + '" alt=""></span>，连到数字上。', "ok");
+      sfxOk();
+    } else {
+      q1Draw(n, false, ".animal-group");
+      q1ClearSel();
+      feedback("再数一数，一共有几只小动物？", "err");
+      sfxErr();
+    }
+  }
+
+  /* 阶段2：物品连数字 */
+  function q1Connect2(n){
+    var d = quiz.data;
+    if (n === d.count2){
+      quiz.done = true;
+      q1Draw(n, true, ".item-group");
+      var g = stage.querySelector(".item-group");
       g.classList.remove("selected"); g.classList.add("ok");
       var c = stage.querySelector('.num-card[data-num="' + n + '"]');
       c.classList.remove("selected"); c.classList.add("ok");
       stage.querySelectorAll(".num-card").forEach(function(x){
         if (!x.classList.contains("ok")) x.classList.add("dim");
       });
-      feedback("太棒啦！" + d.count + " 只" + d.animal.name + " 连 " + d.count + "！", "ok");
+      q1ClearSel();
+      feedback('太棒啦！' + d.count + ' 只<span class="q6-inline"><img src="' + d.animal.img + '" alt=""></span>连 ' + d.count + '，' + d.count2 + ' 个<span class="q6-inline"><img src="' + d.item.img + '" alt=""></span>连 ' + d.count2 + '！', "ok");
       sfxOk();
     } else {
-      q1Draw(n, false);
+      q1Draw(n, false, ".item-group");
       q1ClearSel();
-      feedback("再数一数，一共有几只小动物？", "err");
+      feedback('再数一数，下面有几个<span class="q6-inline"><img src="' + d.item.img + '" alt=""></span>？', "err");
       sfxErr();
     }
   }
@@ -748,18 +884,38 @@ body{
     1: {
       group: function(){
         if (quiz.done) return;
+        var d = quiz.data;
+        if (d.phase !== 1){
+          feedback("第一连已经对啦！再连下面的物品。", "");
+          return;
+        }
         var card = stage.querySelector(".num-card.selected");
         if (card){ q1Connect(+card.getAttribute("data-num")); return; }
         q1ClearSel();
         q1SelGroup = true;
         stage.querySelector(".animal-group").classList.add("selected");
       },
+      igroup: function(){
+        if (quiz.done) return;
+        var d = quiz.data;
+        if (d.phase !== 2){
+          feedback("先把上面的小动物连到数字上。", "");
+          return;
+        }
+        var card = stage.querySelector(".num-card.selected");
+        if (card){ q1Connect2(+card.getAttribute("data-num")); return; }
+        q1ClearSel();
+        q1SelItem = true;
+        stage.querySelector(".item-group").classList.add("selected");
+      },
       num: function(el){
         if (quiz.done) return;
-        if (q1SelGroup){ q1Connect(+el.getAttribute("data-num")); return; }
+        var d = quiz.data;
+        if (q1SelGroup && d.phase === 1){ q1Connect(+el.getAttribute("data-num")); return; }
+        if (q1SelItem && d.phase === 2){ q1Connect2(+el.getAttribute("data-num")); return; }
         q1ClearSel();
         el.classList.add("selected");
-        feedback("再点一点上面的小动物，就连起来啦！", "");
+        feedback(d.phase === 1 ? "再点一点上面的小动物，就连起来啦！" : "再点一点下面的物品，就连起来啦！", "");
       }
     },
     2: {
@@ -797,28 +953,47 @@ body{
       reset: function(){ redraw(); }
     },
     3: {
-      answer: function(el){
-        var d = quiz.data, ans = el.getAttribute("data-a");
-        var correct = d.countA > d.countB ? "a" : (d.countA < d.countB ? "b" : "eq");
-        if (ans === correct){
+      opt: function(el){
+        var d = quiz.data;
+        if (d.done) return;
+        var seg = +el.getAttribute("data-seg");
+        var v = el.getAttribute("data-v");
+        if (seg === 1){ d.sel1 = v; } else { d.sel2 = v; }
+        var box = stage.querySelector('.q3-pick[data-seg="' + seg + '"]');
+        box.querySelectorAll(".q3-opt").forEach(function(b){
+          b.classList.remove("bad");
+          b.classList.toggle("on", b === el);
+        });
+        sfxOk();
+      },
+      check3: function(){
+        var d = quiz.data;
+        if (d.done) return;
+        if (d.sel1 === null || d.sel2 === null){
+          feedback("两个括号都要选一选哦！", "err");
+          sfxErr();
+          return;
+        }
+        var c1 = d.countA > d.countB ? "more" : "less";
+        var c2 = d.countB > d.countA ? "more" : "less";
+        if (d.sel1 === c1 && d.sel2 === c2){
           quiz.done = true;
-          el.classList.add("correct");
-          stage.querySelectorAll(".ans-btn").forEach(function(x){
-            if (!x.classList.contains("correct")) x.classList.add("dim");
-          });
-          if (d.countA > d.countB){
-            feedback("太棒啦！" + d.a.name + "多！", "ok");
-          } else if (d.countA < d.countB){
-            feedback("太棒啦！" + d.b.name + "多！", "ok");
-          } else {
-            feedback("太棒啦！两边一样多！", "ok");
-          }
+          stage.querySelectorAll(".q3-opt.on").forEach(function(b){ b.classList.add("ok"); });
+          feedback("太棒啦！比一比，都对啦！", "ok");
           sfxOk();
         } else {
-          feedback("再数一数，一组一组对着数。", "err");
+          stage.querySelectorAll(".q3-opt").forEach(function(b){
+            if (!b.classList.contains("on")) return;
+            var seg = +b.getAttribute("data-seg");
+            var v = b.getAttribute("data-v");
+            var correct = seg === 1 ? c1 : c2;
+            if (v !== correct) b.classList.add("bad");
+          });
+          feedback("再数一数，重新选一选。", "err");
           sfxErr();
         }
-      }
+      },
+      reset: function(){ redraw(); }
     },
     4: {
       pick: function(el){
@@ -916,7 +1091,7 @@ body{
           stage.querySelectorAll(".q6-num").forEach(function(x){
             if (!x.classList.contains("ok")) x.classList.add("dim");
           });
-          feedback("对啦！这里一共有 " + d.total + " 只" + d.animal.name + "！", "ok");
+          feedback('对啦！这里一共有 ' + d.total + ' 只<span class="q6-inline"><img src="' + d.animal.img + '" alt=""></span>！', "ok");
           sfxOk();
         } else {
           feedback("再数一数，选一选正确的数字。", "err");
@@ -962,6 +1137,40 @@ body{
           sfxErr();
         }
       }
+    },
+    8: {
+      draw: function(){
+        var d = quiz.data;
+        if (d.done) return;
+        if (d.drawn >= 10){
+          feedback("最多只能画 10 个哦！", "err");
+          sfxErr();
+          return;
+        }
+        var cell = stage.querySelector('.q8-draw[data-i="' + d.drawn + '"]');
+        cell.innerHTML = shapeHtml(d.shape);
+        d.drawn++;
+        sfxOk();
+      },
+      check: function(){
+        var d = quiz.data;
+        if (d.done) return;
+        var ok = (d.mode === "less" && d.drawn < d.count) ||
+                 (d.mode === "same" && d.drawn === d.count) ||
+                 (d.mode === "more" && d.drawn > d.count);
+        if (ok){
+          quiz.done = true;
+          var itemImg = '<span class="q8-inline-item"><img src="' + d.item.img + '" alt=""></span>';
+          var modeTxt = d.mode === "less" ? "比 " + itemImg + " 少" : (d.mode === "more" ? "比 " + itemImg + " 多" : "和 " + itemImg + " 一样多");
+          feedback('太棒啦！画了 ' + d.drawn + ' 个<span class="q8-inline-shape">' + shapeHtml(d.shape) + "</span>，" + modeTxt + "！", "ok");
+          sfxOk();
+        } else {
+          stage.querySelectorAll(".q8-draw").forEach(function(c){ c.innerHTML = ""; });
+          d.drawn = 0;
+          feedback("再数一数，重新画一画。", "err");
+          sfxErr();
+        }
+      }
     }
   };
 
@@ -987,23 +1196,19 @@ body{
     var meta = TITLES[quiz.type];
     document.getElementById("badge").className = "badge badge-" + quiz.type;
     document.getElementById("badgeNum").textContent = quiz.no;
-    document.getElementById("badgeTag").textContent = meta.tag;
     document.getElementById("title").textContent = meta.title;
-    document.getElementById("hint").textContent = meta.hint;
     stage.innerHTML = VIEWS[quiz.type]();
     feedbackClear();
   }
 
   document.getElementById("nextBtn").addEventListener("click", function(){
-    var t;
-    do { t = rand(1, 7); } while (t === quiz.type);
     quiz.no++;
-    quiz.type = t;
+    quiz.type = (quiz.type % 8) + 1;
     render();
   });
 
   /* ===== 启动 ===== */
-  quiz.type = rand(1, 7);
+  quiz.type = 1;
   render();
 })();
 </script>
